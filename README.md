@@ -21,7 +21,7 @@ cd ~;git clone https://github.com/Apollonyan/tidy-sub.git
 cd ~/tidy-sub;swift run tidy
 ```
 
-3. 确保 `tidy` 后面只有一个空格。（如有需要）按下删除键
+3. 确保 `tidy` 后面只有一个空格。（如有需要）按下删除键去除多余的换行/空格
 4. 将需要处理的字幕文件拖拽到 Terminal 窗口中
 5. 按下回车键。你应该能看到如下的输出
 
@@ -35,3 +35,4 @@ cd ~/tidy-sub;swift run tidy
 ```
 
 6. 根据警告和建议最字幕进行额外的修改
+7. 如果有错误的处理，可以从备份字幕文件中恢复

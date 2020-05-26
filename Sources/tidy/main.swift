@@ -8,6 +8,7 @@
 
 import srt
 import tidysub
+import Rainbow
 import Foundation
 import ArgumentParser
 
@@ -32,13 +33,24 @@ struct Tidy: ParsableCommand {
         if let output = output, output != cnSub && output != enSub {
             outputPath = output
         } else {
-            try FileManager.default.copyItem(atPath: cnSub, toPath: cnSub + ".bak")
+            let backupPath = cnSub + ".bak"
+            if FileManager.default.fileExists(atPath: backupPath) {
+                print("删除备份文件：".bold.red + backupPath)
+                try FileManager.default.removeItem(atPath: backupPath)
+            }
+            print("保存备份字幕：".bold.yellow + backupPath)
+            try FileManager.default.copyItem(atPath: cnSub, toPath: backupPath)
             outputPath = cnSub
         }
+        print("加载英文字幕：".bold.blue + enSub)
         let enSRT = try SRT(path: enSub)
+        print("加载中文字幕：".bold.blue + cnSub)
         let cnSRT = try SRT(path: cnSub)
-        try tidy(cnSub: cnSRT, basedOnENSub: enSRT)
-            .write(to: outputPath)
+        print("清理中文字幕……".bold.blue)
+        let processed = tidy(cnSub: cnSRT, basedOnENSub: enSRT)
+        print("导出处理结果：".bold.blue + outputPath)
+        try processed.write(to: outputPath)
+        print("完成！".bold.green)
     }
 }
 

@@ -8,7 +8,10 @@
 
 import srt
 
-public func tidy<T: Subtitle>(cnSub: T, basedOnENSub enSub: Subtitle) -> T {
+public func tidy<T: Subtitle>(
+    cnSub: T, basedOnENSub enSub: Subtitle,
+    process: (Int, [String]) -> [String]
+) -> T {
     precondition(cnSub.segments.count == enSub.segments.count,
                  "Subtitles are of different count")
     return T(segments: zip(cnSub.segments, enSub.segments).enumerated().map {
@@ -23,10 +26,11 @@ public func tidy<T: Subtitle>(cnSub: T, basedOnENSub enSub: Subtitle) -> T {
             .filter { !$0.isEmpty }
         let filtered = cnProcessed
             .filter { !enProcessed.contains($0) }
+        let index = i + 1
         return SRT.Segment(
-            index: i + 1,
+            index: index,
             from: cnSegment.startTime, to: cnSegment.endTime,
-            contents: filtered.isEmpty ? cnProcessed : filtered
+            contents: filtered.isEmpty ? cnProcessed : process(index, filtered)
         )
     })
 }

@@ -12,6 +12,10 @@ import Rainbow
 import Foundation
 import ArgumentParser
 
+extension CharacterSet {
+    static let nonEssential = CharacterSet(charactersIn: "，。")
+}
+
 struct Tidy: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "srt 自动清理工具",
@@ -38,6 +42,7 @@ struct Tidy: ParsableCommand {
                 print("删除备份文件：".bold.red + backupPath)
                 try FileManager.default.removeItem(atPath: backupPath)
             }
+            
             print("保存备份字幕：".bold.yellow + backupPath)
             try FileManager.default.copyItem(atPath: cnSub, toPath: backupPath)
             outputPath = cnSub
@@ -47,7 +52,37 @@ struct Tidy: ParsableCommand {
         print("加载中文字幕：".bold.blue + cnSub)
         let cnSRT = try SRT(path: cnSub)
         print("清理中文字幕……".bold.blue)
-        let processed = tidy(cnSub: cnSRT, basedOnENSub: enSRT)
+        let processed = tidy(cnSub: cnSRT, basedOnENSub: enSRT) {
+            (index, contents) in
+            guard index != 1 else { return contents }
+            if contents.count > 2 {
+                print("警告：".bold.red + """
+                第 \(String(format: "%-4d ", index))\
+                条超过了 2 行字幕限制
+                """)
+            }
+            let contents = contents.map {
+                $0.trimmingCharacters(in: .nonEssential)
+            }
+            for (row, content) in contents.enumerated() {
+                let count = content.reduce(0, { $0 + ($1.utf8.count == 3 ? 2 : 1) })
+                switch count {
+                case ..<40:
+                    break
+                case ..<46:
+                    print("提示：".bold.yellow + """
+                    第 \(String(format: "%-4d ", index))\
+                    条 \(row + 1) 行偏长：\(content)
+                    """)
+                default:
+                    print("警告：".bold.red + """
+                    第 \(String(format: "%-4d ", index))\
+                    条 \(row + 1) 行过长：\(content)
+                    """)
+                }
+            }
+            return contents
+        }
         print("导出处理结果：".bold.blue + outputPath)
         try processed.write(to: outputPath)
         print("完成！".bold.green)

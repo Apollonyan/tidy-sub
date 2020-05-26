@@ -19,7 +19,7 @@ let outputFilePath = "<#filtered cn sub.srt#>"
 
 /**
  开始和结束处理条数，从 1 开始
- 
+
  如果整个文件都需要处理则将其设定为 0
  */
 var startIndex = 304, endIndex = 453
@@ -51,7 +51,7 @@ let filteredSegments = cnSegments.enumerated().map { (i, segment) -> SRT.Segment
         }.map {
             $0.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        
+
         if !filteredContents.isEmpty {
             return SRT.Segment(
                 index: segment.index,
@@ -61,7 +61,7 @@ let filteredSegments = cnSegments.enumerated().map { (i, segment) -> SRT.Segment
             )
         }
     }
-    
+
     return segment
 }
 

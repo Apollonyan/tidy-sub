@@ -12,7 +12,7 @@
       },
       {
         "package": "subtitle",
-        "repositoryURL": "https://github.com/Apollonyan/subtitle",
+        "repositoryURL": "https://github.com/Apollonyan/subtitle.git",
         "state": {
           "branch": "master",
           "revision": "058ba59c6dbe6ac4a5f5976fbdf2e2c93076757b",

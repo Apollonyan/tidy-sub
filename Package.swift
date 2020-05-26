@@ -18,6 +18,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
         .package(url: "https://github.com/Apollonyan/subtitle.git", .branch("master")),
         .package(url: "https://github.com/onevcat/Rainbow.git", from: "3.1.4"),
+        .package(name: "Pangu-Swift", url: "https://github.com/Apollonyan/pangu.Swift", .branch("master")),
     ],
     targets: [
         .target(
@@ -28,7 +29,8 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "srt", package: "subtitle"),
-                "Rainbow"
+                .product(name: "Pangu-Swift", package: "Pangu-Swift"),
+                "Rainbow",
         ]),
         .testTarget(
             name: "tidysubTests",

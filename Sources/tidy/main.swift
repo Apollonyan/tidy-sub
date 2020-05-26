@@ -10,6 +10,7 @@ import srt
 import tidysub
 import Rainbow
 import Foundation
+import Pangu_Swift
 import ArgumentParser
 
 extension CharacterSet {
@@ -62,7 +63,7 @@ struct Tidy: ParsableCommand {
                 """)
             }
             let contents = contents.map {
-                $0.trimmingCharacters(in: .nonEssential)
+                $0.trimmingCharacters(in: .nonEssential).spaced
             }
             for (row, content) in contents.enumerated() {
                 let count = content.reduce(0, { $0 + ($1.utf8.count == 3 ? 2 : 1) })

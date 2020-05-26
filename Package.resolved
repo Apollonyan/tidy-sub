@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Pangu-Swift",
+        "repositoryURL": "https://github.com/Apollonyan/pangu.Swift",
+        "state": {
+          "branch": "master",
+          "revision": "2f9d559b61631350516ca5b38f98cff79f9e81fe",
+          "version": null
+        }
+      },
+      {
         "package": "Rainbow",
         "repositoryURL": "https://github.com/onevcat/Rainbow.git",
         "state": {

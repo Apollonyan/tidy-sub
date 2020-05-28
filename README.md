@@ -63,4 +63,6 @@ error: terminated(72): xcrun --sdk macosx --find xctest output:
 
 修正方法为
 
-`sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`
+```
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```

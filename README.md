@@ -49,5 +49,18 @@ swift run tidy
 
 如果出现网络错误可以再执行一次同样的命令，多次出错可以尝试挂网络代理。
 
-6. 根据警告和建议最字幕进行额外的修改
+6. 根据警告和建议对字幕进行额外的修改
 7. 如果有错误的处理，可以从备份字幕文件中恢复
+
+## 错误解决方案（来自 @YucongDing）
+
+Catalina下遇到如下错误
+
+```
+error: terminated(72): xcrun --sdk macosx --find xctest output:
+    xcrun: error: unable to find utility "xctest", not a developer tool or in PATH
+```
+
+修正方法为
+
+`sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`

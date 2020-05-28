@@ -14,7 +14,7 @@ import Pangu_Swift
 import ArgumentParser
 
 extension CharacterSet {
-    static let nonEssential = CharacterSet(charactersIn: "，。")
+    static let nonEssential = CharacterSet(charactersIn: "，。、")
 }
 
 struct Tidy: ParsableCommand {

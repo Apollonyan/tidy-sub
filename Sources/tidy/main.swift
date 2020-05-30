@@ -64,6 +64,7 @@ struct Tidy: ParsableCommand {
             }
             let contents = contents.map {
                 $0.trimmingCharacters(in: .nonEssential).spaced
+                    .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
             }
             for (row, content) in contents.enumerated() {
                 let count = content.reduce(0, { $0 + ($1.utf8.count == 3 ? 2 : 1) })

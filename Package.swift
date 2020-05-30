@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -18,7 +18,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
         .package(url: "https://github.com/Apollonyan/subtitle.git", .branch("master")),
         .package(url: "https://github.com/onevcat/Rainbow.git", from: "3.1.4"),
-        .package(name: "Pangu-Swift", url: "https://github.com/Apollonyan/pangu.Swift", .branch("master")),
+        .package(url: "https://github.com/Apollonyan/pangu.Swift", .branch("master")),
     ],
     targets: [
         .target(

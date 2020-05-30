@@ -54,7 +54,7 @@ swift run tidy
 
 ## 错误解决方案（来自 @YucongDing）
 
-Catalina下遇到如下错误
+如遇到如下错误
 
 ```
 error: terminated(72): xcrun --sdk macosx --find xctest output:

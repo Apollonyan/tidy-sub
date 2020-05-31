@@ -20,7 +20,7 @@ extension CharacterSet {
 struct Tidy: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "srt 自动清理工具",
-        version: "0.0.1"
+        version: "0.0.2"
     )
 
     @Argument(help: "中文字幕文件路径")

@@ -58,13 +58,17 @@ struct Tidy: ParsableCommand {
             guard index != 1 else { return contents }
             if contents.count > 2 {
                 print("警告：".bold.red + """
-                第 \(String(format: "%-4d ", index))\
-                条超过了 2 行字幕限制
-                """)
+                    第 \(String(format: "%-4d ", index))\
+                    条超过了 2 行字幕限制
+                    """)
             }
             let contents = contents.map {
-                $0.trimmingCharacters(in: .nonEssential).spaced
+                $0.trimmingCharacters(in: .nonEssential)
+                    .spaced
                     .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
+                    .replacingOccurrences(of: "“ ", with: "“")
+                    .replacingOccurrences(of: " ”", with: "”")
+                    .replacingOccurrences(of: #"<(\S+) >"#, with: "<$1>", options: .regularExpression)
             }
             for (row, content) in contents.enumerated() {
                 let count = content.reduce(0, { $0 + ($1.utf8.count == 3 ? 2 : 1) })
@@ -73,14 +77,14 @@ struct Tidy: ParsableCommand {
                     break
                 case ..<46:
                     print("提示：".bold.yellow + """
-                    第 \(String(format: "%-4d ", index))\
-                    条 \(row + 1) 行偏长：\(content)
-                    """)
+                        第 \(String(format: "%-4d", index)) \
+                        条 \(row + 1) 行偏长：\(content)
+                        """)
                 default:
                     print("警告：".bold.red + """
-                    第 \(String(format: "%-4d ", index))\
-                    条 \(row + 1) 行过长：\(content)
-                    """)
+                        第 \(String(format: "%-4d", index)) \
+                        条 \(row + 1) 行过长：\(content)
+                        """)
                 }
             }
             return contents

@@ -1,9 +1,9 @@
 //
-//  tidysub.swift
+//  Remove English.swift
 //  tidy sub
 //
 //  Created by Liuliet.Lee on 26/5/2020.
-//  Copyright © 2020 Apollo nyan~. All rights reserved.
+//  Copyright © 2020 Apollo nyan~. MIT License.
 //
 
 import srt

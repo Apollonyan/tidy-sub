@@ -23,14 +23,16 @@ let package = Package(
     targets: [
         .target(
             name: "tidy",
-            dependencies: ["tidysub"]),
+            dependencies: [
+              .product(name: "ArgumentParser", package: "swift-argument-parser"),
+              "Rainbow",
+              "tidysub",
+        ]),
         .target(
             name: "tidysub",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "srt", package: "subtitle"),
                 .product(name: "Pangu-Swift", package: "Pangu-Swift"),
-                "Rainbow",
         ]),
         .testTarget(
             name: "tidysubTests",

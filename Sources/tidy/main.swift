@@ -3,19 +3,14 @@
 //  tidy sub
 //
 //  Created by Liuliet.Lee on 26/5/2020.
-//  Copyright © 2020 Apollo nyan~. All rights reserved.
+//  Copyright © 2020 Apollo nyan~. MIT License.
 //
 
 import srt
 import tidysub
 import Rainbow
 import Foundation
-import Pangu_Swift
 import ArgumentParser
-
-extension CharacterSet {
-    static let nonEssential = CharacterSet(charactersIn: "，。、")
-}
 
 struct Tidy: ParsableCommand {
     static let configuration = CommandConfiguration(
@@ -62,17 +57,9 @@ struct Tidy: ParsableCommand {
                     条超过了 2 行字幕限制
                     """)
             }
-            let contents = contents.map {
-                $0.trimmingCharacters(in: .nonEssential)
-                    .spaced
-                    .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
-                    .replacingOccurrences(of: "“ ", with: "“")
-                    .replacingOccurrences(of: " ”", with: "”")
-                    .replacingOccurrences(of: #"<(\S+) >"#, with: "<$1>", options: .regularExpression)
-            }
+            let contents = contents.map(format)
             for (row, content) in contents.enumerated() {
-                let count = content.reduce(0, { $0 + ($1.utf8.count == 3 ? 2 : 1) })
-                switch count {
+                switch content.displayWidth {
                 case ..<40:
                     break
                 case ..<46:

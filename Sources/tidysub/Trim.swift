@@ -1,5 +1,5 @@
 //
-//  Recommendations.swift
+//  Trim.swift
 //  tidy sub
 //
 //  Created by Apollo Zhu on 6/7/20.
@@ -20,10 +20,4 @@ public func format(_ line: String) -> String {
     .replacingOccurrences(of: "“ ", with: "“")
     .replacingOccurrences(of: " ”", with: "”")
     .replacingOccurrences(of: #"<(\S+) >"#, with: "<$1>", options: .regularExpression)
-}
-
-extension String {
-  public var displayWidth: Int {
-    return reduce(0, { $0 + ($1.utf8.count == 3 ? 2 : 1) })
-  }
 }

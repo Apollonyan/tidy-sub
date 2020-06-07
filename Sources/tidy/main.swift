@@ -50,7 +50,6 @@ struct Tidy: ParsableCommand {
         print("清理中文字幕……".bold.blue)
         let processed = tidy(cnSub: cnSRT, basedOnENSub: enSRT) {
             (index, contents) in
-            guard index != 1 else { return contents }
             if contents.count > 2 {
                 print("警告：".bold.red + """
                     第 \(String(format: "%-4d ", index))\

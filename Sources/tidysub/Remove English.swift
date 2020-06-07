@@ -17,7 +17,7 @@ public func tidy<T: Subtitle>(
     return T(segments: zip(cnSub.segments, enSub.segments).enumerated().map {
         (i, segments) in
         let (cnSegment, enSegment) = segments
-
+        
         let cnProcessed = cnSegment.contents
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }

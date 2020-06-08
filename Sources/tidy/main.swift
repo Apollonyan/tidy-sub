@@ -27,6 +27,9 @@ struct Tidy: ParsableCommand {
     @Argument(default: nil, help: "英文字幕文件路径，默认和中文字幕路径唯一区别是 zh-Hans 替换为 en")
     var enSub: String?
 
+    @Flag(name: .shortAndLong, help: "是否将字幕合并到一起")
+    var merge: Bool
+
     func run() throws {
         let enSub = self.enSub ?? cnSub.replacingOccurrences(of: "zh-Hans", with: "en")
         let outputPath: String
@@ -76,7 +79,11 @@ struct Tidy: ParsableCommand {
             return contents
         }
         print("导出处理结果：".bold.blue + outputPath)
-        try processed.write(to: outputPath)
+        if merge {
+            try tidysub.merge(processed, with: enSRT).write(to: outputPath)
+        } else {
+            try processed.write(to: outputPath)
+        }
         print("完成！".bold.green)
     }
 }
